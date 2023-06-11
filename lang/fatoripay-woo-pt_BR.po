@@ -1,0 +1,764 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FatoriPay Payment Gateway for WooCommerce\n"
+"POT-Creation-Date: 2021-06-02 14:01-0300\n"
+"PO-Revision-Date: 2021-06-02 14:01-0300\n"
+"Last-Translator: Daniel Leal <daniel.leal.san@gmail.com>\n"
+"Language-Team: Daniel Leal <daniel.leal.san@gmail.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: fatoripay-woo.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: fatoripay-woo.php:142
+msgid "System status &gt; logs"
+msgstr "Status do sistema &gt; logs"
+
+#: inc/admin-pages/class-fatoripay-woo-my-account.php:41
+#: inc/admin-pages/class-fatoripay-woo-my-account.php:64
+msgid "Pay the Bank Slip"
+msgstr "Pagar com Boleto"
+
+#: inc/class-fatoripay-woo-api.php:472
+msgid "Transaction was cancelled by UOL FatoriPay"
+msgstr "Transação foi cancelada pelo FatoriPay by PagSeguro"
+
+#: inc/class-fatoripay-woo-api.php:479
+msgid "Transaction was paid and approved."
+msgstr "A transação foi paga e aprovada."
+
+#: inc/class-fatoripay-woo-api.php:488
+msgid ""
+"An approved transaction was cancelled by the End User. Please consult your "
+"Account Manager for costs."
+msgstr ""
+"Uma transação aprovada foi cancelada pelo Usuário Final. Consulte o gerente "
+"de contas para obter custos."
+
+#: inc/class-fatoripay-woo-api.php:495
+msgid "Payment date of transaction expired"
+msgstr "Data de pagamento da transação expirada"
+
+#: inc/class-fatoripay-woo-api.php:510
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-addons-gateway.php:143
+msgid ""
+"FatoriPay: The customer generated a bank slip. Awaiting payment confirmation."
+msgstr ""
+"FatoriPay: O cliente gerou um boleto bancário. Aguardando confirmação de "
+"pagamento."
+
+#: inc/class-fatoripay-woo-api.php:516
+msgid "FatoriPay: Invoice paid. Waiting for the acquirer confirmation."
+msgstr "FatoriPay: Fatura paga. Esperando a confirmação do adquirente."
+
+#: inc/class-fatoripay-woo-api.php:524
+msgid "A partial or full refund was requested and accepted for the transaction"
+msgstr "Um reembolso parcial ou total foi solicitado e aceito para a transação"
+
+#: inc/class-fatoripay-woo-api.php:531
+#, php-format
+msgid "Invoice for order %s was refunded"
+msgstr "Faturas para o pedido %s foi reembolsado"
+
+#: inc/class-fatoripay-woo-api.php:532
+msgid "Invoice refunded"
+msgstr "Fatura reembolsada"
+
+#: inc/class-fatoripay-woo-api.php:533
+#, php-format
+msgid "Order %s has been marked as refunded by FatoriPay."
+msgstr "O Pedido %s foi marcado como reembolsado pelo FatoriPay."
+
+#: inc/class-fatoripay-woo-api.php:601
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-addons-gateway.php:255
+msgid "The request failed!"
+msgstr "O pedido falhou!"
+
+#: inc/class-fatoripay-woo-api.php:621
+msgid "Can't do partial refunds"
+msgstr "Não é possível reembolsos parciais"
+
+#: inc/class-fatoripay-woo-api.php:682
+#, php-format
+msgid "%1s x %2s (Total: %3s)"
+msgstr "%1s x %2s (Total: %3s)"
+
+#: inc/class-fatoripay-woo-api.php:971
+msgid "Your credit card data is invalid. Try again!."
+msgstr "Os dados do seu cartão de crédito são inválidos. Tente novamente!."
+
+#: inc/class-fatoripay-woo-api.php:1077
+msgid "Neighborhood"
+msgstr "Bairro"
+
+#: inc/class-fatoripay-woo-api.php:1081 inc/class-fatoripay-woo-api.php:1129
+#, php-format
+msgid "%s invalid."
+msgstr "%s inválido."
+
+#: inc/class-fatoripay-woo.php:144
+msgid "Credit card settings"
+msgstr "Configurações do cartão de crédito"
+
+#: inc/class-fatoripay-woo.php:146
+msgid "Bank slip settings"
+msgstr "Configurações do Boleto Bancário"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-addons-gateway.php:141
+msgid "FatoriPay Bank Slip: URL"
+msgstr "FatoriPay Boleto Bancario: URL"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-addons-gateway.php:198
+msgid "FatoriPay: Subscription paid successfully."
+msgstr "FatoriPay: Assinatura paga com sucesso."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-addons-gateway.php:209
+msgid "FatoriPay: Subscription payment failed."
+msgstr "FatoriPay: O pagamento da assinatura falhou."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:27
+msgid "FatoriPay - Boleto – Direct Checkout"
+msgstr "FatoriPay - Boleto – Direct Checkout"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:28
+msgid "Accept Boleto payments in Brazil without redirections."
+msgstr "Aceite pagamentos com boleto no Brasil sem redirecionamentos."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:147
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:127
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:117
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:117
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:147
+msgid "Enable/Disable"
+msgstr "Habilitar/Desabilitar"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:149
+msgid "Enable bank slip payments with FatoriPay"
+msgstr "Habilite boleto bancário com o FatoriPay"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:153
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:133
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:123
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:123
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:153
+msgid "Title"
+msgstr "Título"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:155
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:135
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:125
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:125
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:155
+msgid "Payment method title seen on the checkout page."
+msgstr "Título do método de pagamento visto na página de checkout."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:156
+msgid "Bank Slip"
+msgstr "Boleto Bancário"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:159
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:139
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:129
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:129
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:159
+msgid "Description"
+msgstr "Descrição"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:161
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:141
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:131
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:131
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:161
+msgid "Payment method description seen on the checkout page."
+msgstr "Descrição do método de pagamento visto na página de checkout."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:162
+msgid "Pay with Bank Slip"
+msgstr "Pagar com Boleto Bancário"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:165
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:145
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:135
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:135
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:165
+msgid "Integration settings"
+msgstr "Configurações da integração"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:170
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:150
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:140
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:140
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:170
+msgid "MerchantID"
+msgstr "MerchantID"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:172
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:152
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:142
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:142
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:172
+#, php-format
+msgid "Your FatoriPay account's unique store ID, found in %s."
+msgstr "O ID exclusivo da sua conta FatoriPay, encontrado em %s."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:172
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:181
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:152
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:161
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:142
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:151
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:142
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:151
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:172
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:181
+msgid "My Account"
+msgstr "Minha Conta"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:179
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:159
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:149
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:149
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:179
+msgid "SecretKey"
+msgstr "SecretKey"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:181
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:161
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:151
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:151
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:181
+#, php-format
+msgid "SecretKey can be found/created in %s."
+msgstr "SecretKey pode ser encontrado/criado em %s."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:188
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:184
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:158
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:158
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:217
+msgid "Integration behavior"
+msgstr "Comportamento de integração"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:193
+msgid "Banking Ticket Tax Message"
+msgstr "Mensagem de Taxa de gestão de risco do Boleto"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:195
+msgid ""
+"Display a message alerting the customer that will be charged R$ 1,50 for "
+"payment by Banking Ticket"
+msgstr ""
+"Exibe uma mensagem de alerta ao cliente que será cobrado R$ 1,50 para "
+"pagamento por Boleto Bancário"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:199
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:189
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:163
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:163
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:222
+msgid "Invoice Prefix"
+msgstr "Prefixo da fatura"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:201
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:191
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:165
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:165
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:224
+msgid "Please enter a prefix for your invoice code."
+msgstr "Por favor, digite um prefixo para o seu código de fatura."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:207
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:203
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:171
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:171
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:230
+msgid "FatoriPay sandbox"
+msgstr "FatoriPay sandbox"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:209
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:205
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:173
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:173
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:232
+msgid "Enable FatoriPay sandbox"
+msgstr "Habilite FatoriPay Sandbox"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:211
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:207
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:175
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:175
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:234
+msgid "Used to test payments."
+msgstr "Usado para testar pagamentos."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:214
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:210
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:178
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:178
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:237
+msgid "Debugging"
+msgstr "Depuração"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:216
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:212
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:180
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:180
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:239
+msgid "Enable logging"
+msgstr "Ativar Logs"
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:218
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:214
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:182
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:182
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:241
+#, php-format
+msgid ""
+"Log FatoriPay events, such as API requests, for debugging purposes. The log "
+"can be found in %s."
+msgstr ""
+"Registra os Logs do FatoriPay como solicitações de API, para fins de "
+"depuração. O registro pode ser encontrado em %s."
+
+#: inc/gateways/bank-slip/class-fatoripay-woo-bank-slip-gateway.php:370
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:318
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:317
+msgid "Refunds for this payment method are not allowed."
+msgstr "Reembolso para esse método de pagamento não é permitido."
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:27
+msgid "FatoriPay - Credit card – Direct Checkout"
+msgstr "FatoriPay - Cartão de crédito - Direct Checkout"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:28
+msgid "Accept credit card payments in Brazil without redirections."
+msgstr ""
+"Aceite pagamentos com cartão de crédito no Brasil sem redirecionamentos."
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:129
+msgid "Enable credit card payments with FatoriPay"
+msgstr "Habilitar pagamentos com cartão de crédito com o FatoriPay"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:136
+msgid "Credit card"
+msgstr "Cartão de Crédito"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:142
+msgid "Pay with credit card"
+msgstr "Pagar com cartão de crédito"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:168
+msgid "Payment options"
+msgstr "Opções de pagamento"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:173
+msgid "Installments limit"
+msgstr "Limite de parcelas"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:175
+msgid ""
+"The maximum number of installments allowed for credit card payments. This "
+"can't be greater than the setting allowed in your FatoriPay account."
+msgstr ""
+"O número máximo de parcelas permitidas para pagamentos com cartão de "
+"crédito. Isso não pode ser maior do que a configuração permitida em sua "
+"conta FatoriPay."
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:197
+msgid "Send only the order total"
+msgstr "Enviar apenas o Total do Pedido"
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:199
+msgid ""
+"When enabled, the customer only gets the order total, not the list of "
+"purchased items."
+msgstr ""
+"Quando ativado, o cliente só recebe o total do pedido, não a lista de itens "
+"comprados."
+
+#: inc/gateways/credit-card/class-fatoripay-woo-credit-card-gateway.php:286
+msgid "Total"
+msgstr "Total"
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:27
+msgid "FatoriPay - e-Wallet – Direct Checkout"
+msgstr "FatoriPay - Carteiras Digitais – Direct Checkout"
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:28
+msgid "Accept e-wallet payments in Brazil without redirections."
+msgstr "Aceite pagamentos de carteiras digitais usando o FatoriPay."
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:119
+msgid "Enable e-wallet payments with FatoriPay"
+msgstr "Habilite pagamentos de carteira digitais com o FatoriPay"
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:126
+msgid "FatoriPay Wallets"
+msgstr "FatoriPay E-Wallets"
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:132
+msgid "Pay with e-wallets"
+msgstr "Pague com carteiras digitais"
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:204
+msgid "PagSeguro"
+msgstr "PagSeguro"
+
+#: inc/gateways/e-wallet/class-fatoripay-woo-e-wallet-gateway.php:208
+msgid "PayPal"
+msgstr "PayPal"
+
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:30
+msgid "FatoriPay - PIX – Hosted Checkout "
+msgstr "FatoriPay - PIX – Hosted Checkout "
+
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:31
+msgid "Accept PIX in Brazil on FatoriPay’s payment page."
+msgstr "Aceite o PIX no Brasil na página de pagamento da FatoriPay."
+
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:119
+msgid "Enable PIX payments with FatoriPay"
+msgstr "Habilite pagamentos PIX com o FatoriPay"
+
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:126
+msgid "PIX"
+msgstr "PIX"
+
+#: inc/gateways/pix/class-fatoripay-woo-pix-gateway.php:132
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:162
+msgid "Confirm your order to be redirected to the payment page."
+msgstr ""
+"Confirme seu pedido a ser redirecionado para a página de pagamento do "
+"FatoriPay."
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:27
+msgid "FatoriPay - Redirect – Hosted Checkout "
+msgstr "FatoriPay - Redirect – Hosted Checkout "
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:28
+msgid "Accept over 140 payments on FatoriPay's payment page."
+msgstr "Aceite mais de 140 pagamentos na página de pagamento do FatoriPay."
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:149
+msgid "Enable redirect payments with FatoriPay"
+msgstr "Habilitar pagamentos redirecionados a pagina de pagamento do FatoriPay"
+
+#. Author of the plugin/theme
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:156
+msgid "FatoriPay"
+msgstr "FatoriPay"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:188
+msgid "Payment options available in the redirected checkout."
+msgstr "Opções de pagamento disponíveis na pagina de pagamento do FatoriPay."
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:193
+msgid "Credit Card"
+msgstr "Cartão de Crédito"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:195
+msgid "Enable Credit Card for Hosted Checkout"
+msgstr "Habilite Cartão de Crédito na pagina de pagamento do FatoriPay"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:199
+msgid "Cash"
+msgstr "Boleto ou Vouchers de Pagamento"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:201
+msgid "Enable Cash for Hosted Checkout"
+msgstr ""
+"Habilite boleto ou voucher de pagamento na pagina de pagamento do FatoriPay"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:205
+msgid "E-Wallet"
+msgstr "Carteira Digital"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:207
+msgid "Enable E-Wallet for Hosted Checkout"
+msgstr "Habilite o carteiras digitais na pagina de pagamento do FatoriPay"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:211
+msgid "Transfer"
+msgstr "Transferências bancarias ou Débito Online"
+
+#: inc/gateways/redirect/class-fatoripay-woo-redirect-gateway.php:213
+msgid "Enable Transfer for Hosted Checkout"
+msgstr ""
+"Habilite Transferências Bancárias ou Débito Online na pagina de pagamento do "
+"FatoriPay"
+
+#: templates/bank-slip/checkout-instructions.php:19
+msgid ""
+"After clicking on \"Place order\", you will have access to the bank slip, "
+"which you can print and pay on your internet banking or in a lottery "
+"retailer."
+msgstr ""
+"Depois de clicar em \"Fazer o pedido\", você terá acesso ao boleto bancário, "
+"que você pode imprimir e pagar em seu internet banking ou em um varejista de "
+"loterias."
+
+#: templates/bank-slip/checkout-instructions.php:21
+msgid "Note: The order will be confirmed only after the payment approval."
+msgstr ""
+"ATENÇÃO: O pedido será confirmado apenas depois da aprovação do pagamento."
+
+#: templates/bank-slip/checkout-instructions.php:27
+msgid "Tax"
+msgstr "Taxa"
+
+#: templates/bank-slip/checkout-instructions.php:27
+msgid ""
+"R$ 1,50 (rate applied to cover management risk costs of the payment method)."
+msgstr ""
+"R$ 1,50 (taxa aplicada para cobrir custos de risco de gestão da forma de "
+"pagamento)."
+
+#: templates/bank-slip/emails/html-instructions.php:15
+#: templates/bank-slip/emails/plain-instructions.php:14
+#: templates/credit-card/emails/html-instructions.php:15
+#: templates/credit-card/emails/plain-instructions.php:14
+msgid "Payment"
+msgstr "Pagamento"
+
+#: templates/bank-slip/emails/html-instructions.php:23
+msgid "Some payment methods may incur administrative fees."
+msgstr "Em alguns métodos de pagamento poderão incorrer taxas administrativas."
+
+#: templates/bank-slip/emails/html-instructions.php:27
+#: templates/bank-slip/emails/plain-instructions.php:18
+msgid ""
+"Use the link below to view your bank slip. You can print and pay it on your "
+"internet banking or in a lottery retailer."
+msgstr ""
+"Use o link abaixo para visualizar seu boleto bancário. Você pode imprimir e "
+"pagá-lo no seu internet banking ou em uma loteria."
+
+#: templates/bank-slip/emails/html-instructions.php:31
+#: templates/bank-slip/payment-instructions.php:43
+msgid "Pay the bank slip"
+msgstr "Pagar boleto"
+
+#: templates/bank-slip/emails/html-instructions.php:35
+#: templates/bank-slip/emails/plain-instructions.php:26
+#: templates/bank-slip/payment-instructions.php:47
+msgid ""
+"After we receive the bank slip payment confirmation, your order will be "
+"processed."
+msgstr "Após recebermos a confirmação do boleto, a sua compra será processada."
+
+#: templates/bank-slip/payment-instructions.php:21
+msgid "Bank Slip Barcode"
+msgstr "Código de barras do Boleto Bancário"
+
+#: templates/bank-slip/payment-instructions.php:35
+msgid "Copy Code"
+msgstr "Copiar código"
+
+#: templates/bank-slip/payment-instructions.php:47
+msgid "Please click in the following button to view your bank slip."
+msgstr "Por favor, clique no link abaixo para acessar o seu Boleto."
+
+#: templates/bank-slip/payment-instructions.php:47
+msgid ""
+"You can print and pay it on your internet banking or in a lottery retailer."
+msgstr ""
+"Você pode imprimir e pagá-lo no seu internet banking ou em um varejista de "
+"loteria."
+
+#: templates/credit-card/emails/html-instructions.php:17
+#: templates/credit-card/emails/plain-instructions.php:18
+#: templates/credit-card/payment-instructions.php:17
+#, php-format
+msgid "Payment successfully made using credit card in %s."
+msgstr "Pagamento feito com sucesso usando cartão de crédito em %s."
+
+#: templates/credit-card/payment-form.php:29
+msgid "Card number"
+msgstr "Número do cartão"
+
+#: templates/credit-card/payment-form.php:41
+msgid "Name printed on card"
+msgstr "Nome impresso no cartão"
+
+#: templates/credit-card/payment-form.php:53
+msgid "Expiry date (MM/YYYY)"
+msgstr "Data de validade (MM/YYYY)"
+
+#: templates/credit-card/payment-form.php:61
+msgid "Security code"
+msgstr "Código de Segurança"
+
+#: templates/credit-card/payment-form.php:75
+msgid "Installments"
+msgstr "Parcelamento"
+
+#: templates/credit-card/payment-form.php:79
+msgid "Type your card number"
+msgstr "Digite o número do seu cartão"
+
+#: templates/e-wallet/payment-instructions.php:19
+#: templates/pix/payment-instructions.php:19
+#: templates/redirect/payment-instructions.php:19
+msgid ""
+"We are awaiting confirmation of payment and soon your purchase will be "
+"completed."
+msgstr ""
+"Estamos aguardando confirmação do pagamento e em breve sua compra será "
+"concluída."
+
+#: templates/e-wallet/payment-instructions.php:19
+msgid "As soon as this occurs, you will be notified by email."
+msgstr "Assim que isso ocorrer, você será notificado por e-mail."
+
+#: templates/pix/checkout-instructions.php:22
+#: templates/redirect/checkout-instructions.php:17
+msgid "Confirm your order to be redirected to the FatoriPay payment page."
+msgstr ""
+"Confirme seu pedido a ser redirecionado para a página de pagamento do "
+"FatoriPay."
+
+#: views/html-notice-account-id-missing.php:13
+#: views/html-notice-api-token-missing.php:13
+#: views/html-notice-currency-not-supported.php:13
+#: views/html-notice-woocommerce-missing.php:20
+msgid "FatoriPay disabled"
+msgstr "FatoriPay desativado"
+
+#: views/html-notice-account-id-missing.php:13
+msgid "Please, inform a valid API token."
+msgstr "Por favor, informe um token de API válido."
+
+#: views/html-notice-api-token-missing.php:13
+msgid "You should inform your account ID."
+msgstr "Você deve informar o ID de sua conta."
+
+#: views/html-notice-currency-not-supported.php:13
+#, php-format
+msgid ""
+"Currency <code>%s</code> is not supported. WooCommerce FatoriPay only works "
+"with Brazilian real (BRL)."
+msgstr "A moeda <code>%s</code> não é suportada."
+
+#: views/html-notice-ecfb-missing.php:28
+#, php-format
+msgid "WooCommerce FatoriPay requires the latest version of %s to work!"
+msgstr ""
+"FatoriPay Payment Gateway para WooCommerce requer a versão mais recente de "
+"%s para funcionar!"
+
+#: views/html-notice-ecfb-missing.php:28
+msgid "WooCommerce Extra Checkout Fields for Brazil"
+msgstr "WooCommerce Extra Checkout Fields for Brazil"
+
+#: views/html-notice-woocommerce-missing.php:20
+#, php-format
+msgid "WooCommerce FatoriPay requires the latest version of %s to work!"
+msgstr ""
+"FatoriPay Payment Gateway para WooCommerce requer a versão mais recente de "
+"%s para funcionar!"
+
+#: views/html-notice-woocommerce-missing.php:20
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#. Plugin Name of the plugin/theme
+msgid "FatoriPay Payment Gateway for WooCommerce"
+msgstr "FatoriPay Payment Gateway para WooCommerce"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/fatoripay-for-woocommerce/"
+msgstr "https://wordpress.org/plugins/fatoripay-for-woocommerce/"
+
+#. Description of the plugin/theme
+msgid ""
+"FatoriPay Payment Gateway for WooCommerce is made for merchants looking for "
+"a boost on sales and conversions in Latin America, as well as Portugal, "
+"Spain and Turkey by accepting over 140 local payments options directly in "
+"your e-commerce."
+msgstr ""
+"O FatoriPay Payment Gateway for WooCommerce é feito para os comerciantes que "
+"procuram um impulso nas vendas e conversões na América Latina, assim como "
+"Portugal, Espanha e Turquia, aceitando mais de 140 opções de pagamento "
+"locais diretamente em seu comércio eletrônico.\n"
+"Nossas funcionalidades são feitas para fornecer a melhor experiência de "
+"pagamento para seus clientes e incluem parcelas e, reembolsos. Todos eles "
+"estão disponíveis seguindo alguns passos para a instalação e não requerem "
+"conhecimentos técnicos."
+
+#. Author URI of the plugin/theme
+msgid "https://pagseguro.com/"
+msgstr ""
+
+#~ msgid ""
+#~ "FatoriPay: The customer generated a bank slip. Awaiting payment "
+#~ "confirmation."
+#~ msgstr ""
+#~ "FatoriPay: O cliente gerou um boleto bancário. Aguardando confirmação de "
+#~ "pagamento."
+
+#~ msgid ""
+#~ "R$ 1,00 (rate was applied to cover management risk costs of the payment "
+#~ "method)."
+#~ msgstr ""
+#~ "R$ 1,50 (taxa aplicada para cobrir custos de risco de gestão da forma de "
+#~ "pagamento)."
+
+#~ msgid "Birth date invalid."
+#~ msgstr "Data de nascimento inválida."
+
+#~ msgid "Phone invalid."
+#~ msgstr "Telefone inválido."
+
+#~ msgid "FatoriPay: Invoice paid successfully by credit card."
+#~ msgstr "FatoriPay: Fatura paga com sucesso com cartão de crédito."
+
+#~ msgid "FatoriPay: Credit card declined."
+#~ msgstr "FatoriPay: Cartão de crédito recusado."
+
+#~ msgid "FatoriPay: Invoice paid successfully."
+#~ msgstr "FatoriPay: Fatura paga com sucesso."
+
+#~ msgid "FatoriPay: Invoice refunded."
+#~ msgstr "FatoriPay: Fatura reembolsada."
+
+#~ msgid "FatoriPay: Invoice expired."
+#~ msgstr "FatoriPay: pedido expirado."
+
+#~ msgid "FatoriPay - Bank slip"
+#~ msgstr "FatoriPay - Boleto bancário"
+
+#~ msgid "Accept bank slip payments using FatoriPay."
+#~ msgstr "Aceite pagamentos de boletos bancários usando o FatoriPay."
+
+#, fuzzy
+#~ msgid "Allow credit card save and reuse"
+#~ msgstr "Permitir a economia e reutilização do cartão de crédito"
+
+#, fuzzy
+#~ msgid ""
+#~ "Turn on to offer your customer the option to save credit card info for "
+#~ "reuse in a future purchase"
+#~ msgstr ""
+#~ "Ligue para oferecer ao seu cliente a opção de salvar informações do "
+#~ "cartão de crédito para reutilização em uma compra futura"
+
+#~ msgid "SMS"
+#~ msgstr "SMS"
+
+#, fuzzy
+#~ msgid "Enable SMS for Hosted Checkout (Turkey only)"
+#~ msgstr "Habilite SMS para checkout hospedado (somente turquia)"
+
+#~ msgid "Select"
+#~ msgstr "Selecionar"

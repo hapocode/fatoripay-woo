@@ -1,0 +1,44 @@
+.fatoripay-row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  margin-right: calc(var(--bs-gutter-x) / -2);
+  margin-left: calc(var(--bs-gutter-x) / -2);
+}
+.fatoripay-row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) / 2);
+  padding-left: calc(var(--bs-gutter-x) / 2);
+  margin-top: var(--bs-gutter-y);
+}
+
+.fatoripay-col {
+  flex: 1 0 0%;
+}
+
+.wallet-options-img {
+  width: 40%;
+  padding: 10px;
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+  filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.wallet-options-img-disable {
+  -webkit-filter: grayscale(0);
+  filter: none;
+}
+
+.fatoripay-col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.wallet-options-input{
+  display: inline !important;
+  float: left;
+}
