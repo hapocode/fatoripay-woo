@@ -10,10 +10,8 @@
  * @return mixed
  */
 function wcbc_request($key, $default = false) {
-
 	return isset($_REQUEST[$key]) ? esc_html($_REQUEST[$key]) : esc_html($default);
-
-} // end wu_request;
+}
 
 /**
  * Checks if an array key value is set and returns it.
@@ -26,10 +24,8 @@ function wcbc_request($key, $default = false) {
  * @return mixed
  */
 function wcbc_get_isset($array, $key, $default = false) {
-
 	return isset($array[$key]) ? esc_html($array[$key]) : esc_html($default);
-
-} // end wcbc_get_isset;
+}
 
 /**
  * Clean input values.
@@ -38,23 +34,11 @@ function wcbc_get_isset($array, $key, $default = false) {
  * @return string Return claned values
  */
 function wcbc_clean_input_values($value) {
-
   $value = str_replace('.', '', $value);
-
   $value = str_replace('-', '', $value);
-
   $value = str_replace(' ', '', $value);
-
   $value = str_replace(',', '', $value);
-
 	$value = str_replace('(', '', $value);
-
 	$value = str_replace(')', '', $value);
-
   return esc_html(trim($value));
-
-} // end wcbc_clean_input_values;
-
-function wcbc_get_order_by_transaction_id($transaction_id) {
-
-} // end wcbc_get_order_by_transaction_id;
+}

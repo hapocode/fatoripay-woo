@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 	exit;
 
-} // end if;
+}
 
 $plugin_slug = 'woocommerce-extra-checkout-fields-for-brazil';
 
@@ -19,7 +19,7 @@ if (current_user_can('install_plugins')) {
 
 	$url = 'http://wordpress.org/plugins/' . $plugin_slug;
 
-} // end if;
+}
 
 ?>
 
