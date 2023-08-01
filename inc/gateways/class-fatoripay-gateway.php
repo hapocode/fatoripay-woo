@@ -22,6 +22,7 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 	 */
 	public $client_id;
 	public $client_secret;
+	public $username;
 	public $api;
 	public $sandbox;
 	public $debug;
@@ -51,6 +52,7 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 		$this->description      = $this->get_option('description');
 		$this->client_id		= $this->get_option('client_id');
 		$this->client_secret	= $this->get_option('client_secret');
+		$this->username         = $this->get_option('username');
 		$this->sandbox          = $this->get_option('sandbox', 'no');
 		$this->debug            = $this->get_option('debug');
 

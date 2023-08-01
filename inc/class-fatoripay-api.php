@@ -41,9 +41,10 @@ class FatoriPay_API {
 	public function __construct($gateway = null, $method = '', $sandbox = 'no', $prefix = 'wc') {
 
 		if ($sandbox === 'yes') {
-			$this->api_url = 'https://api-sandbox.fatoripay.com.br';
+			//$this->api_url = 'https://sandbox-api.fatoripay.com.br/api/v1/';
+			$this->api_url = 'http://localhost:8001/api/v1/';
 		} else {
-			$this->api_url = 'https://api.fatoripay.com.br';
+			$this->api_url = 'https://api.fatoripay.com.br/api/v1/';
 		}
 
 		$this->gateway = $gateway;
@@ -173,12 +174,11 @@ class FatoriPay_API {
 
 		$order  = new WC_Order($order_id);
 
-		$payload = $this->get_fatoripay_payload($order, $_POST);
+		$payload = $this->getPayload($order, $_POST);
 
-		$charge = $this->do_request('/transactions', 'POST', $payload, 2);
+		$charge = $this->doRequest('invoices/create', 'POST', $payload);
 
 		if ($charge && isset($charge['errors'])) {
-
 			return array(
 				'result'   => 'fail',
 				'redirect' => '',
@@ -188,6 +188,26 @@ class FatoriPay_API {
 		}
 
 		if (!isset($charge)) {
+			return array(
+				'result'   => 'fail',
+				'redirect' => '',
+				'success' => false
+			);
+
+		}
+
+		if ($charge['link']) {
+
+			update_post_meta($order->get_id(), '_fatoripay_wc_transaction_data', $charge);
+			update_post_meta($order->get_id(), '_fatoripay_wc_transaction_id', $charge['id']);
+
+			return array(
+				'result'   => 'success',
+				'redirect' => $charge['link'],
+				'success'  => $charge
+			);
+
+		} else {
 
 			return array(
 				'result'   => 'fail',
@@ -197,109 +217,6 @@ class FatoriPay_API {
 
 		}
 
-		if ($charge['transaction']) {
-
-			update_post_meta($order->get_id(), '_fatoripay_wc_transaction_data', $charge['transaction']);
-
-			update_post_meta($order->get_id(), '_fatoripay_wc_transaction_id', $charge['transaction']['code']);
-
-			$status = $this->get_invoice_status($charge['transaction']['code']);
-
-			$this->update_order_status($order->get_id(), $status);
-
-			if ($this->method === 'e-wallet') {
-
-				return array(
-					'result'   => 'success',
-					'redirect' => $charge['transaction']['payment-url'],
-					'success'  => $charge['transaction']
-				);
-
-			}
-
-			return array(
-				'result'   => 'success',
-				'redirect' => $this->gateway->get_return_url($order),
-				'success'  => $charge['transaction']
-			);
-
-		}
-
-		return array(
-			'result'   => 'success',
-			'redirect' => $this->gateway->get_return_url($order),
-			'success'  => $charge['transaction']
-		);
-
-	}
-
-	/**
-	 * Process order refund
-	 *
-	 * @param string $order_id WC Order ID.
-	 * @param string $amount Amount to refund.
-	 * @return array API Response
-	 */
-	public function process_refund($order_id, $amount) {
-
-		global $woocommerce;
-
-		$order = new WC_Order($order_id);
-
-		$transaction_id = get_post_meta($order_id, '_fatoripay_wc_transaction_id');
-
-		if (is_array($transaction_id) && isset($transaction_id['0'])) {
-
-			$transaction_id = $transaction_id[0];
-
-			if ($transaction_id) {
-
-				$payload = array(
-					'transaction-id' => $transaction_id,
-					'amount'         => (float) $amount,
-					'notify-url'     => $woocommerce->api_request_url(get_class($this->gateway)),
-					'reference'      => 'refund_' . $order_id,
-					'test-mode'      => 0
-				);
-
-				if ($this->gateway->sandbox === 'yes') {
-
-					$payload['test-mode'] = 1;
-
-				}
-
-				$charge = $this->do_request('/refunds', 'POST', $payload, 2);
-
-				if (!isset($charge)) {
-
-					return array(
-						'result'   => 'fail',
-						'redirect' => '',
-						'success' => false
-					);
-
-				}
-
-				if ($charge && isset($charge['errors'])) {
-
-					return array(
-						'result'   => 'fail',
-						'redirect' => '',
-						'success' => false
-					);
-
-				}
-
-				if ($this->gateway->debug === 'yes' && isset($charge['refund-id'])) {
-
-					$this->gateway->log->add($this->gateway->id, 'Order refunded successfully! Refund ID: ' . $charge['refund-id']);
-
-				}
-
-				return true;
-
-			}
-		}
 	}
 
 	/**
@@ -313,102 +230,45 @@ class FatoriPay_API {
 
 		$order = new WC_Order($order_id);
 
-		$check_status = $status;
-
-		if (is_array($status)) {
-
-			$check_status = $status['status'];
-
-		}
-
-		switch ($check_status) {
-			case 'CANCELLED':
+		switch ($status) {
+			case 'canceled':
 				$message = __('Transaction was cancelled by FatoriPay', 'fatoripay-woo');
-
 				$order->update_status('failed', $message);
-
 				break;
 
-			case 'COMPLETE':
-				$message = __('Transaction was paid and approved.', 'fatoripay-woo');
-
+			case 'paid':
+				$message = __('Transação foi paga e aprovada.', 'fatoripay-woo');
 				$order->payment_complete();
-
 				$order->add_order_note($message);
 
 			  break;
 
-			case 'CHARGEBACK':
-				$message = __('An approved transaction was cancelled by the End User. Please consult your Account Manager for costs.', 'fatoripay-woo');
-
+			case 'chargeback':
+				$message = __('Transação foi estornada.', 'fatoripay-woo');
 				$order->update_status('refunded', $message);
 
 				break;
 
-			case 'EXPIRED':
-				$message = __('Payment date of transaction expired', 'fatoripay-woo');
-
+			case 'overdue':
+				$message = __('A fatura expirou.', 'fatoripay-woo');
 				$order->update_status('failed', $message);
 
 				break;
 
-			case 'NOT-PAID':
-				$message = 'Payment confirmation of transaction was not received';
-
-				break;
-			case 'UNDER-REVIEW':
-			case 'PENDING':
-
-				if ($this->method === 'bank-slip') {
-
-					$message = __('FatoriPay: The customer generated a bank slip. Awaiting payment confirmation.', 'fatoripay-woo');
-
-					$order->update_status('on-hold', $message);
-
-				} else {
-
-					$message = __('FatoriPay: Invoice paid. Waiting for the acquirer confirmation.', 'fatoripay-woo');
-
-					$order->update_status('on-hold', $message);
-
-				}
-
-				break;
-			case 'REFUNDED':
-				$message = __('A partial or full refund was requested and accepted for the transaction', 'fatoripay-woo');
-
-				$this->refund_order($order_id, $order->get_total());
-
-				$order->update_status('refunded', $message);
-
-				$this->send_email(
-					sprintf(__( 'Invoice for order %s was refunded', 'fatoripay-woo' ), $order->get_order_number()),
-					__('Invoice refunded', 'fatoripay-woo'),
-					sprintf(__('Order %s has been marked as refunded by FatoriPay.', 'fatoripay-woo'), $order->get_order_number())
-				);
-
-				break;
-
-			default:
-				$message = 'Erro ao obter o status';
-
+			case 'unpaid':
+				$message = __('Transação não foi paga.', 'fatoripay-woo');
+				$order->update_status('on-hold', $message);
 				break;
 
 		}
 
 		if ($this->gateway->debug === 'yes') {
-
-			$this->gateway->log->add($this->gateway->id, 'FatoriPay payment status for order ' . $order->get_order_number() . ' is now: ' . $message);
-
+			$this->gateway->log->add($this->gateway->id, 'FatoriPay Status ' . $order->get_order_number() . ' e agora: ' . $message);
 		}
 
-		/**
-		 * Allow custom actions when update the order status.
-		 */
 		do_action( 'fatoripay_woocommerce_update_order_status', $order, $status, $message);
 
 		return $message;
-
 	}
 
 	/**
@@ -422,74 +282,21 @@ class FatoriPay_API {
 
 		@ob_clean();
 
-		if (isset($_REQUEST['notification-type']) && $_REQUEST['notification-type'] === 'transaction') {
+		if (isset($_REQUEST['id']) && isset($_REQUEST['status'])) {
 
 			header( 'HTTP/1.1 200 OK' );
+			$order_id = intval(str_replace($_REQUEST['ref'], 'WC-', ''));
 
-			$transaction_code = sanitize_text_field($_REQUEST['transaction-code']);
+			if ($order_id) {
 
-			$transaction = $this->get_invoice_status($transaction_code);
-
-			if (isset($transaction['order_id'])) {
-
-				$order_id = intval($transaction['order_id']);
-
-				if ($order_id) {
-
-					$status = $transaction['status'];
-
-					if ($status) {
-
-						$this->update_order_status($order_id, $status);
-
-						exit();
-
-					}
-
-				}
+				$this->update_order_status($order_id, $_REQUEST['status']);
+				exit();
 
 			}
-
 		}
 
 		wp_die(__('The request failed!', 'fatoripay-woo' ), __('The request failed!', 'fatoripay-woo' ), array('response' => 200));
 
-	}
-
-	/**
-	 * Refund order.
-	 *
-	 * @param  WC_Order $order Order data.
-	 * @param  string $payment_id.
-	 */
-	public function refund_order($order_id, $amount) {
-
-		if(empty($order_id)) {
-
-			return false;
-
-		}
-
-		$order = wc_get_order($order_id);
-		$total = $order->get_total();
-		if($total != $amount) throw new Exception( __( "Can't do partial refunds", 'fatoripay-woo' ) );
-
-		$transaction_id = get_post_meta( $order_id, '_transaction_id', true);
-
-		$response = $this->do_request( 'invoices/'.$transaction_id.'/refund', 'POST', array() );
-
-		if (is_object($response) && is_wp_error($response)) {
-			if ( 'yes' == $this->gateway->debug ) {
-				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to refund order'.$order_id.': '.
-																											$response->get_error_message() );
-			}
-			return $response;
-		} else if ( isset( $response['body'] ) && ! empty( $response['body'] ) ) {
-			if ( 'yes' == $this->gateway->debug && isset( $response['body']['status'] ) && $response['body']['status'] == "refunded" ) {
-				$this->gateway->log->add( $this->gateway->id, 'Order refunded successfully!' );
-			}
-			return true;
-		}
 	}
 
  	/**
@@ -501,14 +308,14 @@ class FatoriPay_API {
 		* @param string   $method Payment Method
  		* @return array Payload.
 		*/
-	public function get_fatoripay_payload($order) {
+	public function getPayload($order) {
 
 		global $woocommerce;
 
 		$payload = [
-			'ref' => '',
-			'due_date' => '',
-			'description' => '',
+			'ref' => 'WC-' . $order->get_id(),
+			'due_date' => date('d-m-Y', strtotime('+1 day')),
+			'description' => 'Pedido #' . $order->get_id(),
 			'discount_amount' => 0,
 			'tax_amount' => 0,
 			'customer' => $this->getCustomerPayload($order),
@@ -519,7 +326,7 @@ class FatoriPay_API {
 				'credit_card' => true,
 			],
 			'notification_url' => $woocommerce->api_request_url(get_class($this->gateway)),
-			'return_url' => $order->get_checkout_order_received_url(),
+			'redirect_url' => $order->get_checkout_order_received_url(),
 		];
 
 		return $payload;
@@ -599,111 +406,47 @@ class FatoriPay_API {
 	 * @param  array  $headers  Request headers.
 	 * @return array  Request response.
 	 */
-	protected function do_request($endpoint, $method = 'POST', $data = array(), $version = '2') {
+	protected function doRequest($endpoint, $method = 'POST', $data = array()) {
 
-		if (isset($data) && $data) {
-
-			$data = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-			$data_hash = md5($data);
-
-			$data_hash_hmac = hash_hmac(
-				'sha256',
-				$endpoint . $data_hash,
-				$this->gateway->secret_key
-			);
-
-		} else {
-
-			$data_hash_hmac = hash_hmac(
-				'sha256',
-				$endpoint,
-				$this->gateway->secret_key
-			);
-
-		}
-
-		$authorization_hash = $this->gateway->merchant_id . ':' . $data_hash_hmac;
+		$bearToken = $this->getBearerToken();
 
 		$params = array(
 			'method'    => $method,
-			'timeout'   => 60,
 			'headers'    => array(
-				'Accept'        => 'application/vnd.boacompra.com.v' . $version . '+json; charset=UTF-8',
 				'Content-Type'  => 'application/json',
-				'Authorization' => $authorization_hash,
+				'Authorization' => 'Bearer ' . $bearToken['access_token'],
 			)
 		);
 
 		if ($data) {
-
-			$params['headers']['Content-MD5'] = $data_hash;
-
-			$params['body'] = $data;
-
+			$params['body'] = json_encode($data);
 		}
+
 		$response = wp_remote_request($this->get_api_url() . $endpoint, $params);
-
 		$body = json_decode(wp_remote_retrieve_body($response), true);
-
+		error_log(print_r($body, true));
 		return $body;
 
 	}
 
-	/**
-	 * Request information about a specific transaction.
-	 *
-	 * @param string $transaction_id Transaction ID.
-	 * @param boolean $is_refund If is a refund
-	 * @return mixed Transaction response.
-	 */
-	public function get_invoice_status($transaction_id = '', $is_refund = false) {
+	protected function getBearerToken() {
 
-		if (empty($transaction_id)) {
+		$params = array(
+			'method'    => 'POST',
+			'headers'    => array(
+				'Content-Type'  => 'application/json',
+				'client-id' => $this->gateway->client_id,
+				'client-secret' => $this->gateway->client_secret,
+			),
+			'body' => json_encode([
+				'username' => $this->gateway->username,
+			])
+		);
 
-			return;
+		$response = wp_remote_request($this->get_api_url() . 'auth/login', $params);
+		$body = json_decode(wp_remote_retrieve_body($response), true);
 
-		}
-
-		$endpoint = '/transactions/' . $transaction_id;
-
-		$request = $this->do_request($endpoint, 'GET', array(), 1);
-
-		if (isset($request) && isset($request['errors'])) {
-
-			if ($this->gateway->debug == 'yes') {
-
-				$this->gateway->log->add( $this->gateway->id, 'Error: Getting invoice status from FatoriPay. Invoice ID: ' . $transaction_id );
-
-			}
-
-			return;
-
-		}
-
-		$status = $request['transaction-result']['transactions'][0]['status'];
-
-		if ($is_refund) {
-
-			$refunds = $request['transaction-result']['transactions'][0]['refunds'];
-
-			$last_refund = array_pop($refunds);
-
-			return array(
-				'order_id'    => str_replace($this->prefix, '', $request['transaction-result']['transactions'][0]['order-id']),
-				'status'      => $status,
-				'refunds'     => $refunds,
-				'last_refund' => $last_refund
-			);
-
-		} else {
-
-			return array(
-				'order_id'    => str_replace($this->prefix, '', $request['transaction-result']['transactions'][0]['order-id']),
-				'status'      => $status,
-			);
-
-		}
+		return $body;
 
 	}
 
