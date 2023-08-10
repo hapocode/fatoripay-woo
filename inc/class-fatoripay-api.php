@@ -178,7 +178,12 @@ class FatoriPay_API {
 
 		$charge = $this->doRequest('invoices/create', 'POST', $payload);
 
+		error_log('charge: ' . print_r($charge, true));
+
 		if ($charge && isset($charge['errors'])) {
+
+			$this->add_error($charge['message']);
+
 			return array(
 				'result'   => 'fail',
 				'redirect' => '',
@@ -228,6 +233,10 @@ class FatoriPay_API {
 	 */
 	protected function update_order_status($order_id, $status) {
 
+		error_log('update_order_status');
+		error_log(print_r($order_id, true));
+		error_log(print_r($status, true));
+
 		$order = new WC_Order($order_id);
 
 		switch ($status) {
@@ -269,34 +278,6 @@ class FatoriPay_API {
 		do_action( 'fatoripay_woocommerce_update_order_status', $order, $status, $message);
 
 		return $message;
-	}
-
-	/**
-	 * Notification Handler
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return void
-	 */
-	public function notification_handler() {
-
-		@ob_clean();
-
-		if (isset($_REQUEST['id']) && isset($_REQUEST['status'])) {
-
-			header( 'HTTP/1.1 200 OK' );
-			$order_id = intval(str_replace($_REQUEST['ref'], 'WC-', ''));
-
-			if ($order_id) {
-
-				$this->update_order_status($order_id, $_REQUEST['status']);
-				exit();
-
-			}
-		}
-
-		wp_die(__('The request failed!', 'fatoripay-woo' ), __('The request failed!', 'fatoripay-woo' ), array('response' => 200));
-
 	}
 
  	/**
@@ -343,13 +324,18 @@ class FatoriPay_API {
 	 */
 	public function getCustomerPayload($order) {
 
-		$cpfOrCnpj = $order->get_meta('_billing_cpf');
-		if (empty($cpfOrCnpj)) {
+		$personType = $order->get_meta('_billing_persontype');
+
+		if ($personType == '1') {
+			$cpfOrCnpj = $order->get_meta('_billing_cpf');
+			$name = $order->get_billing_first_name().' '.$order->get_billing_last_name();
+		} else {
 			$cpfOrCnpj = $order->get_meta('_billing_cnpj');
+			$name = $order->get_billing_company();
 		}
 
 		$customer = [
-			'name' => $order->get_billing_first_name().' '.$order->get_billing_last_name(),
+			'name' => $name,
 			'email' => $order->get_billing_email(),
 			'cellphone' => wcbc_clean_input_values($order->get_billing_phone()),
 			'cpfcnpj' => wcbc_clean_input_values($cpfOrCnpj),
@@ -383,11 +369,12 @@ class FatoriPay_API {
 		$counter = 0;
 
 		foreach ($cart_items as $item_key => $item_value) {
+			$itemPrice = str_replace('.', '', $item_value['line_subtotal'] / $item_value['qty']);
 			$items[$counter] = [
 				'name' => $item_value['name'],
 				'description' => $item_value['name'],
 				'quantity' => $item_value['qty'],
-				'price' => $item_value['line_subtotal'],
+				'price' => $itemPrice,
 			];
 
 			$counter = $counter + 1;
@@ -395,6 +382,19 @@ class FatoriPay_API {
 
 		return $items;
 
+	}
+
+	/**
+	 * Get invoice from FatoriPay API using the invoice ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $invoiceId Invoice ID.
+	 * @return array Invoice data.
+	 */
+	protected function getInvoice($invoiceId) {
+		$endpoint = 'invoices/' . $invoiceId;
+		return $this->doRequest($endpoint, 'GET');
 	}
 
 	/**
@@ -424,11 +424,16 @@ class FatoriPay_API {
 
 		$response = wp_remote_request($this->get_api_url() . $endpoint, $params);
 		$body = json_decode(wp_remote_retrieve_body($response), true);
-		error_log(print_r($body, true));
+
 		return $body;
 
 	}
 
+	/**
+	 * Get the bearer token from the FatoriPay API.
+	 *
+	 * @return array Bearer token.
+	 */
 	protected function getBearerToken() {
 
 		$params = array(
@@ -447,6 +452,39 @@ class FatoriPay_API {
 		$body = json_decode(wp_remote_retrieve_body($response), true);
 
 		return $body;
+
+	}
+
+	/**
+	 * Notification Handler
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function notification_handler() {
+
+		@ob_clean();
+
+		error_log(print_r($_REQUEST, true));
+
+		if (isset($_REQUEST['invoice_id']) && isset($_REQUEST['new_status'])) {
+
+			header( 'HTTP/1.1 200 OK' );
+			$transaction = $this->getInvoice($_REQUEST['invoice_id']);
+
+			error_log(print_r($transaction, true));
+
+			$order_id = str_replace('WC-', '', $transaction['ref']);
+			error_log(print_r($order_id, true));
+
+			if (isset($transaction['status']) && $order_id) {
+				$this->update_order_status($order_id, $transaction['status']);
+				exit();
+			}
+		}
+
+		wp_die(__('The request failed!', 'fatoripay-woo' ), __('The request failed!', 'fatoripay-woo' ), array('response' => 200));
 
 	}
 
