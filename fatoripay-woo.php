@@ -4,7 +4,7 @@
  * Description: FatoriPay Gateway for WooCommerce.
  * Plugin URI: https://wordpress.org/plugins/fatoripay-payment-for-woocommerce/
  * Text Domain: fatoripay-woo
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: FatoriPay
  * Author URI: https://fatoripay.com.br/
  * Network: true
@@ -16,9 +16,7 @@
 */
 
 if (!defined('ABSPATH')) {
-
 	exit;
-
 }
 
 if (!class_exists('FatoriPay_Woo')) {

@@ -41,8 +41,8 @@ class FatoriPay_API {
 	public function __construct($gateway = null, $method = '', $sandbox = 'no', $prefix = 'wc') {
 
 		if ($sandbox === 'yes') {
-			//$this->api_url = 'https://sandbox-api.fatoripay.com.br/api/v1/';
-			$this->api_url = 'http://localhost:8001/api/v1/';
+			$this->api_url = 'https://sandbox-api.fatoripay.com.br/api/v1/';
+			// $this->api_url = 'http://localhost:8001/api/v1/';
 		} else {
 			$this->api_url = 'https://api.fatoripay.com.br/api/v1/';
 		}
@@ -178,8 +178,6 @@ class FatoriPay_API {
 
 		$charge = $this->doRequest('invoices/create', 'POST', $payload);
 
-		error_log('charge: ' . print_r($charge, true));
-
 		if ($charge && isset($charge['errors'])) {
 
 			$this->add_error($charge['message']);
@@ -233,12 +231,9 @@ class FatoriPay_API {
 	 */
 	protected function update_order_status($order_id, $status) {
 
-		error_log('update_order_status');
-		error_log(print_r($order_id, true));
-		error_log(print_r($status, true));
-
 		$order = new WC_Order($order_id);
 
+		$message = '';
 		switch ($status) {
 			case 'canceled':
 				$message = __('Transaction was cancelled by FatoriPay', 'fatoripay-woo');
@@ -306,7 +301,7 @@ class FatoriPay_API {
 				'pix' => true,
 				'credit_card' => true,
 			],
-			'notification_url' => $woocommerce->api_request_url(get_class($this->gateway)),
+			'notification_url' => $woocommerce->api_request_url(strtolower(get_class($this->gateway))),
 			'redirect_url' => $order->get_checkout_order_received_url(),
 		];
 
@@ -369,7 +364,23 @@ class FatoriPay_API {
 		$counter = 0;
 
 		foreach ($cart_items as $item_key => $item_value) {
-			$itemPrice = str_replace('.', '', $item_value['line_subtotal'] / $item_value['qty']);
+
+
+			$lineSubTotal = $item_value['line_subtotal'];
+
+			if (strpos($lineSubTotal, '.') === false) {
+				$lineSubTotal = $lineSubTotal . '.00';
+			}
+
+			$itemPrice = $lineSubTotal / $item_value['qty'];
+
+			if (strpos($itemPrice, '.') === false) {
+				$itemPrice = $itemPrice . '.00';
+			}
+
+			$itemPrice = number_format((float)$itemPrice, 2, '.', '');
+			$itemPrice = str_replace('.', ',', $itemPrice);
+
 			$items[$counter] = [
 				'name' => $item_value['name'],
 				'description' => $item_value['name'],
@@ -465,21 +476,14 @@ class FatoriPay_API {
 	public function notification_handler() {
 
 		@ob_clean();
-
-		error_log(print_r($_REQUEST, true));
-
 		if (isset($_REQUEST['invoice_id']) && isset($_REQUEST['new_status'])) {
 
 			header( 'HTTP/1.1 200 OK' );
-			$transaction = $this->getInvoice($_REQUEST['invoice_id']);
 
-			error_log(print_r($transaction, true));
+			$order_id = str_replace('WC-', '', $_REQUEST['ref']);
 
-			$order_id = str_replace('WC-', '', $transaction['ref']);
-			error_log(print_r($order_id, true));
-
-			if (isset($transaction['status']) && $order_id) {
-				$this->update_order_status($order_id, $transaction['status']);
+			if (isset($_REQUEST['new_status']) && $order_id) {
+				$this->update_order_status($order_id, $_REQUEST['new_status']);
 				exit();
 			}
 		}

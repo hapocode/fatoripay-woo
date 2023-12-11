@@ -236,6 +236,7 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	public function notification_handler() {
+		@ob_clean(); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		$this->api->notification_handler();
 	}
 
