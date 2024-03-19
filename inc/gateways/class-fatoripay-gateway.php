@@ -15,12 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 
-	/**
-	 * API Client Name.
-	 *
-	 * @var string
-	 */
-	public $payable_with;
+	public array $payable_with;
 	public $installments_without_interest;
 	public $boleto_overdue_days;
 	public $client_id;

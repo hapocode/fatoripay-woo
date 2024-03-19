@@ -298,9 +298,9 @@ class FatoriPay_API {
 			'customer' => $this->getCustomerPayload($order),
 			'items' => $this->getItemsPayload($order),
 			'payable_with' => [
-				'boleto' => true,
-				'pix' => true,
-				'credit_card' => true,
+				'boleto' => in_array('boleto', $this->gateway->payable_with),
+				'pix' => in_array('pix', $this->gateway->payable_with),
+				'credit_card' => in_array('credit_card', $this->gateway->payable_with),
 				'credit_card_installments_without_interest' => $this->gateway->installments_without_interest,
 			],
 			'notification_url' => $woocommerce->api_request_url(strtolower(get_class($this->gateway))),
