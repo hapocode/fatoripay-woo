@@ -287,11 +287,11 @@ class FatoriPay_API {
 
 		global $woocommerce;
 
-		error_log(print_r($this->gateway->payable_with, TRUE));
+		$dueDate = $this->gateway->boleto_overdue_days ? date('d-m-Y', strtotime('+' . $this->gateway->boleto_overdue_days . ' days')) : date('d-m-Y', strtotime('+1 day'));
 
 		$payload = [
 			'ref' => 'WC-' . $order->get_id(),
-			'due_date' => date('d-m-Y', strtotime('+1 day')),
+			'due_date' => $dueDate,
 			'description' => 'Pedido #' . $order->get_id(),
 			'discount_amount' => $order->get_total_discount(),
 			'tax_amount' => 0,
