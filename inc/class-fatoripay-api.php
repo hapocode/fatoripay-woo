@@ -42,7 +42,6 @@ class FatoriPay_API {
 
 		if ($sandbox === 'yes') {
 			$this->api_url = 'https://sandbox-api.fatoripay.com.br/api/v1/';
-			// $this->api_url = 'http://localhost:8001/api/v1/';
 		} else {
 			$this->api_url = 'https://api.fatoripay.com.br/api/v1/';
 		}
@@ -97,7 +96,7 @@ class FatoriPay_API {
 		 * Gets order total from "pay for order" page.
 		 */
 		if (0 < $order_id) {
-			$order      = new WC_Order( $order_id );
+			$order      = new WC_Order($order_id);
 			$order_total = (float) $order->get_total();
 
 		/**
@@ -288,11 +287,13 @@ class FatoriPay_API {
 
 		global $woocommerce;
 
+		error_log(print_r($this->gateway->payable_with, TRUE));
+
 		$payload = [
 			'ref' => 'WC-' . $order->get_id(),
 			'due_date' => date('d-m-Y', strtotime('+1 day')),
 			'description' => 'Pedido #' . $order->get_id(),
-			'discount_amount' => 0,
+			'discount_amount' => $order->get_total_discount(),
 			'tax_amount' => 0,
 			'customer' => $this->getCustomerPayload($order),
 			'items' => $this->getItemsPayload($order),
@@ -300,6 +301,7 @@ class FatoriPay_API {
 				'boleto' => true,
 				'pix' => true,
 				'credit_card' => true,
+				'credit_card_installments_without_interest' => $this->gateway->installments_without_interest,
 			],
 			'notification_url' => $woocommerce->api_request_url(strtolower(get_class($this->gateway))),
 			'redirect_url' => $order->get_checkout_order_received_url(),
@@ -389,6 +391,22 @@ class FatoriPay_API {
 			];
 
 			$counter = $counter + 1;
+		}
+
+		$shippingTotal = $order->get_shipping_total();
+
+		if ($shippingTotal > 0) {
+
+			$shippingTotal = number_format((float)$shippingTotal, 2, '.', '');
+			$shippingTotal = str_replace('.', ',', $shippingTotal);
+
+			$items[$counter] = [
+				'name' => __('Shipping', 'fatoripay-woo'),
+				'description' => __('Shipping', 'fatoripay-woo'),
+				'quantity' => 1,
+				'price' => $shippingTotal,
+			];
+
 		}
 
 		return $items;

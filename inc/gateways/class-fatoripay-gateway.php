@@ -20,6 +20,9 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 	 *
 	 * @var string
 	 */
+	public $payable_with;
+	public $installments_without_interest;
+	public $boleto_overdue_days;
 	public $client_id;
 	public $client_secret;
 	public $username;
@@ -48,13 +51,16 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 		/**
 		 * Options.
 		 */
-		$this->title            = $this->get_option('title');
-		$this->description      = $this->get_option('description');
-		$this->client_id		= $this->get_option('client_id');
-		$this->client_secret	= $this->get_option('client_secret');
-		$this->username         = $this->get_option('username');
-		$this->sandbox          = $this->get_option('sandbox', 'no');
-		$this->debug            = $this->get_option('debug');
+		$this->title = $this->get_option('title');
+		$this->description = $this->get_option('description');
+		$this->payable_with = $this->get_option('payable_with');
+		$this->installments_without_interest = $this->get_option('installments_without_interest');
+		$this->boleto_overdue_days = $this->get_option('boleto_overdue_days');
+		$this->client_id = $this->get_option('client_id');
+		$this->client_secret = $this->get_option('client_secret');
+		$this->username = $this->get_option('username');
+		$this->sandbox = $this->get_option('sandbox', 'no');
+		$this->debug = $this->get_option('debug');
 
 		/**
 		 * Active logs.
@@ -142,6 +148,49 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 				'type'        => 'textarea',
 				'description' => __('A descrição do método de pagamento que o cliente vê durante o checkout.', 'fatoripay-woo'),
 				'default'     => __('Aceite pagamentos com Pix, Boleto e Cartão de Crédito.', 'fatoripay-woo')
+			),
+			'payments_options' => array(
+				'title' => __('Configurações dos Pagamentos', 'fatoripay-woo'),
+				'type' => 'title',
+				'description' => ''
+			),
+			'payable_with' => array(
+				'title'       => __('Pagamentos aceitos', 'fatoripay-woo'),
+				'type'        => 'multiselect',
+				'description' => __('Selecione os métodos de pagamento que deseja aceitar.', 'fatoripay-woo'),
+				'default'     => array('pix', 'boleto', 'credit_card'),
+				'options'     => array(
+					'pix'         => __('Pix', 'fatoripay-woo'),
+					'boleto'      => __('Boleto', 'fatoripay-woo'),
+					'credit_card' => __('Cartão de Crédito', 'fatoripay-woo'),
+					'pixboleto'   => __('Pix e Boleto', 'fatoripay-woo'),
+				)
+			),
+			'boleto_options' => array(
+				'title' => __('Configurações do Boleto', 'fatoripay-woo'),
+				'type' => 'title',
+				'description' => ''
+			),
+			'boleto_overdue_days'      => array(
+				'title'             => 'Dias para vencimento',
+				'label'				=> '',
+				'type'              => 'number',
+				'description'       => __( 'Número de dias para vencimento do boleto.', 'fatoripay-woo' ),
+				'custom_attributes' => array(),
+				'default'           => 1
+			),
+			'credit_card_options' => array(
+				'title' => __('Configurações do Cartão de Crédito', 'fatoripay-woo'),
+				'type' => 'title',
+				'description' => ''
+			),
+			'installments_without_interest'      => array(
+				'title'             => 'Parcelas sem juros',
+				'label'				=> '',
+				'type'              => 'number',
+				'description'       => __( 'Número máximo de parcelas sem juros.', 'fatoripay-woo' ),
+				'custom_attributes' => array(),
+				'default'           => 0
 			),
 			'integration'    => array(
 				'title'       => __('Configurações de Integração', 'fatoripay-woo'),
