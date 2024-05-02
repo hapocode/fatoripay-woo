@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 class WC_FatoriPay_My_Account {
 
 	/**
@@ -23,7 +25,11 @@ class WC_FatoriPay_My_Account {
 			return $actions;
 		}
 
-		$data = $order->get_meta('_fatoripay_wc_transaction_data', true );
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$data = $order->get_meta('_fatoripay_wc_transaction_data', true );
+		} else {
+			$data = get_post_meta( $order->get_id(), '_fatoripay_wc_transaction_data', true );
+		}
 
 		if ( ! empty( $data['pdf'] ) ) {
 			$actions[] = array(

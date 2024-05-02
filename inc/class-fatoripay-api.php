@@ -1,5 +1,7 @@
 <?php
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 /**
  * WC FatoriPay API Class.
  */
@@ -200,9 +202,15 @@ class FatoriPay_API {
 
 		if ($charge['link']) {
 
-			$order->update_meta_data('_fatoripay_wc_transaction_data', $charge);
-			$order->update_meta_data('_fatoripay_wc_transaction_id', $charge['id']);
-			$order->save();
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				$order->update_meta_data('_fatoripay_wc_transaction_data', $charge);
+				$order->update_meta_data('_fatoripay_wc_transaction_id', $charge['id']);
+				$order->save();
+			} else {
+				update_post_meta($order->get_id(), '_fatoripay_wc_transaction_data', $charge);
+				update_post_meta($order->get_id(), '_fatoripay_wc_transaction_id', $charge['id']);
+			}
+
 
 			return array(
 				'result'   => 'success',
