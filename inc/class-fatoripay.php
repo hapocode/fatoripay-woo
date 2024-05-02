@@ -1,4 +1,7 @@
 <?php
+
+use Automattic\WooCommerce\Utilities\FeaturesUtil as AutomatticWooCommerceUtilitiesFeaturesUtil;
+
 /**
  * WooCommerce FatoriPay main class.
  */
@@ -15,6 +18,12 @@ class FatoriPay {
 		} else {
 			add_action('admin_notices', array( $this, 'dependencies_notices'));
 		}
+
+		add_action( 'before_woocommerce_init', function() {
+			if ( class_exists( AutomatticWooCommerceUtilitiesFeaturesUtil::class ) ) {
+				AutomatticWooCommerceUtilitiesFeaturesUtil::declare_compatibility( 'custom_order_tables', FATORIPAY_WOO_PLUGIN_FILE, true );
+			}
+		} );
 
 	}
 

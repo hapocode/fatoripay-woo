@@ -48,7 +48,7 @@ class WC_FatoriPay_Gateway extends WC_Payment_Gateway {
 		 */
 		$this->title = $this->get_option('title');
 		$this->description = $this->get_option('description');
-		$this->payable_with = $this->get_option('payable_with');
+		$this->payable_with = $this->get_option('payable_with', array('pix', 'boleto', 'credit_card'));
 		$this->installments_without_interest = $this->get_option('installments_without_interest');
 		$this->boleto_overdue_days = $this->get_option('boleto_overdue_days');
 		$this->client_id = $this->get_option('client_id');

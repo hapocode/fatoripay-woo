@@ -200,8 +200,9 @@ class FatoriPay_API {
 
 		if ($charge['link']) {
 
-			update_post_meta($order->get_id(), '_fatoripay_wc_transaction_data', $charge);
-			update_post_meta($order->get_id(), '_fatoripay_wc_transaction_id', $charge['id']);
+			$order->update_meta_data('_fatoripay_wc_transaction_data', $charge);
+			$order->update_meta_data('_fatoripay_wc_transaction_id', $charge['id']);
+			$order->save();
 
 			return array(
 				'result'   => 'success',

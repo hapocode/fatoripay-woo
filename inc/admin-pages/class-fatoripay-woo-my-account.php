@@ -10,17 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_FatoriPay_My_Account {
 
 	/**
-	 * Initialize my account actions.
-	 */
-	public function __construct() {
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0', '<' ) ) {
-			add_filter( 'woocommerce_my_account_my_orders_actions', array( $this, 'legacy_my_orders_bank_slip_link' ), 10, 2 );
-		} else {
-			add_filter( 'woocommerce_my_account_my_orders_actions', array( $this, 'legacy_my_orders_bank_slip_link' ), 10, 2 );
-		}
-	}
-
-	/**
 	 * Legacy - Add bank slip link/button in My Orders section on My Accout page.
 	 *
 	 * @deprecated 1.1.0
@@ -34,7 +23,8 @@ class WC_FatoriPay_My_Account {
 			return $actions;
 		}
 
-		$data = get_post_meta( $order->get_id(), '_fatoripay_wc_transaction_data', true );
+		$data = $order->get_meta('_fatoripay_wc_transaction_data', true );
+
 		if ( ! empty( $data['pdf'] ) ) {
 			$actions[] = array(
 				'url'  => $data['pdf'],
